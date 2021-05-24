@@ -1,5 +1,5 @@
 from __future__ import annotations
-from vector import Vector
+from vector import Vector, distance
 import matplotlib.pyplot as plt
 import colors
 
@@ -78,6 +78,13 @@ class Polygon(object):
 
     def get_vertices(self) -> list[Vector]:
         return self.vertices
+
+    def perimeter(self) -> float:
+        distances = []
+        for i in range(0, len(self.vertices)):
+            distances.append(distance(self.vertices[i],
+                                      self.vertices[(i+1) % len(self.vertices)]))
+        return sum(distances)
 
 
 class Segment(object):
