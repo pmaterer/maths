@@ -1,3 +1,4 @@
+from __future__ import annotations
 import math
 
 
@@ -8,7 +9,7 @@ class Vector(object):
     def __repr__(self):
         return f"Vector(x={self.x}, y={self.y})"
 
-    def __add__(self, v):
+    def __add__(self, v: Vector) -> Vector:
         if isinstance(v, Vector):
             x, y = self.x + v.x, self.y + v.y
         elif isinstance(v, (int, float)):
@@ -17,10 +18,10 @@ class Vector(object):
             raise ValueError(f"cannot add '{type(v)}' and 'Vector' objects")
         return self.__class__(x, y)
 
-    def __radd__(self, v):
+    def __radd__(self, v: Vector) -> Vector:
         return self.__add__(v)
 
-    def __sub__(self, v):
+    def __sub__(self, v: Vector) -> Vector:
         if isinstance(v, Vector):
             x, y = self.x - v.x, self.y - v.y
         elif isinstance(v, (int, float)):
@@ -29,10 +30,10 @@ class Vector(object):
             raise ValueError(f"cannot subtract '{type(v)}' and 'Vector' objects")
         return self.__class__(x, y)
 
-    def __rsub__(self, v):
+    def __rsub__(self, v: Vector) -> Vector:
         return self.__sub__(v)
 
-    def __mul__(self, v):
+    def __mul__(self, v: Vector) -> Vector:
         if isinstance(v, Vector):
             return self.inner(v)
         elif isinstance(v, (int, float)):
@@ -42,14 +43,22 @@ class Vector(object):
         else:
             raise ValueError(f"cannot multiply '{type(v)}' and 'Vector' objects")
 
-    def __rmul__(self, v):
+    def __rmul__(self, v: Vector) -> Vector:
         return self.__mul__(v)
 
-    def inner(self, v):
+    def inner(self, v: Vector) -> Vector:
         """Returns the dot product (inner product) of self and another vector"""
         if not isinstance(v, Vector):
-            raise ValueError(f"dot product requires another vector")
+            raise ValueError("dot product requires another vector")
         return (self.x * v.x) + (self.y * v.y)
 
-    def length(self):
+    def length(self) -> float:
         return math.sqrt(self.x ** 2 + self.y ** 2)
+
+    def negate(self) -> Vector:
+        negated = self * -1
+        return self.__class__(negated.x, negated.y)
+
+
+def distance(v1: Vector, v2: Vector) -> float:
+    return (v1 - v2).length()
