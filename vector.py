@@ -1,7 +1,7 @@
 import math
 
-class Vector(object):
 
+class Vector(object):
     def __init__(self, x, y):
         self.x, self.y = x, y
 
@@ -16,7 +16,7 @@ class Vector(object):
         else:
             raise ValueError(f"cannot add '{type(v)}' and 'Vector' objects")
         return self.__class__(x, y)
-    
+
     def __radd__(self, v):
         return self.__add__(v)
 
@@ -28,7 +28,7 @@ class Vector(object):
         else:
             raise ValueError(f"cannot subtract '{type(v)}' and 'Vector' objects")
         return self.__class__(x, y)
-    
+
     def __rsub__(self, v):
         return self.__sub__(v)
 
@@ -46,7 +46,7 @@ class Vector(object):
         return self.__mul__(v)
 
     def inner(self, v):
-        """ Returns the dot product (inner product) of self and another vector """
+        """Returns the dot product (inner product) of self and another vector"""
         if not isinstance(v, Vector):
             raise ValueError(f"dot product requires another vector")
         return (self.x * v.x) + (self.y * v.y)
