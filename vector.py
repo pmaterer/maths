@@ -55,6 +55,9 @@ class Vector(object):
     def length(self) -> float:
         return math.sqrt(self.x ** 2 + self.y ** 2)
 
+    def magnitude(self) -> float:
+        return self.length()
+
     def negate(self) -> Vector:
         negated = self * -1
         return self.__class__(negated.x, negated.y)
